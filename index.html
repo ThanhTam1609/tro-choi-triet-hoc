@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hành trình khám phá vật chất - Chủ đề 2.1</title>
+<style>
+:root{--ink:#302e46;--blue:#71c9f7;--orange:#d98b42;--green:#62c63c;--green-dark:#398c25;--purple:#8a55f4}
+*{box-sizing:border-box}body{margin:0;font-family:Nunito,Arial,sans-serif;color:var(--ink);background:linear-gradient(#79cdf7 0 55%,#d9f4ff 55%);min-height:100vh}
+body:before{content:"";position:fixed;inset:auto 0 0;height:22vh;background:linear-gradient(170deg,#91dd66 0 45%,#5cbe3c 46%);z-index:-1}
+header{max-width:1180px;margin:auto;padding:22px 20px 12px;display:flex;align-items:center;gap:14px;color:#fff;text-shadow:0 2px 0 #3995c8}
+.home{width:54px;height:54px;border:4px solid #fff;border-radius:50%;background:#fff;color:#9b5d27;box-shadow:0 4px #a9682c;display:grid;place-items:center;font-size:26px;text-shadow:none}
+.brand{font-size:23px;font-weight:900;flex:1}.scorepill{border:4px solid #fff;background:#fff;border-radius:30px;padding:7px 17px;color:var(--ink);box-shadow:0 4px #a9682c;font-weight:900;font-size:19px;text-shadow:none}
+main{max-width:1180px;margin:8px auto 32px;padding:0 18px}.board{background:#fff;border:7px solid #df974b;border-radius:36px;box-shadow:0 12px #9b632e;padding:34px 34px 30px;min-height:570px}
+.eyebrow{color:#9a5a27;text-transform:uppercase;font-weight:900;letter-spacing:1.3px;font-size:14px}.title{font-size:clamp(28px,4vw,40px);line-height:1.1;font-weight:900;margin:3px 0 22px}
+.remember{display:flex;align-items:center;gap:18px;background:#fff5d4;border:3px dashed #ffbd32;border-radius:24px;padding:16px 22px;margin-bottom:20px;font-size:17px;line-height:1.5;font-weight:800}.mascot{font-size:48px;flex-shrink:0}.remember b{color:#ff5b53}
+.zones{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.zone{border:5px solid #cceafa;background:#f2fbff;border-radius:27px;padding:14px 10px 16px;text-align:center;cursor:pointer;transition:.18s;min-height:260px;color:var(--ink);font-family:inherit}
+.zone:hover{transform:translateY(-5px);box-shadow:0 7px #b2dcef}.zone:disabled{opacity:.55;cursor:not-allowed;transform:none}
+.tag{display:block;background:var(--purple);color:white;border-radius:24px;padding:8px 5px;font-weight:900;font-size:14px;line-height:1.2}.emoji{font-size:55px;margin:12px 0 5px;display:block}.zone h3{font-size:18px;line-height:1.2;margin:5px 0 8px;font-weight:900}.zone p{font-size:13px;line-height:1.35;color:#62627f;margin:0 0 12px}.stars{color:#b7c8d3;font-size:24px;letter-spacing:2px}
+#game{display:none}.gamehead{display:flex;align-items:center;gap:15px;margin-bottom:18px}.gameicon{font-size:47px}.gamehead .title{margin:0;flex:1}.lives{font-size:24px;letter-spacing:2px}.dots{font-size:19px;color:#dbe8ef;white-space:nowrap}.dots .active{color:#ffbd35}
+.scene{height:150px;border:5px solid #b5e1f4;border-radius:28px;background:linear-gradient(#c8efff 0 65%,#85d95b 65%);position:relative;overflow:hidden;margin-bottom:14px}
+.grass{position:absolute;bottom:0;left:0;right:0;height:58px;background:repeating-linear-gradient(90deg,#69c845 0 50px,#7bd253 50px 100px)}
+.player{position:absolute;bottom:26px;left:9%;font-size:54px;z-index:2;transition:left .4s}.enemy{position:absolute;bottom:27px;right:13%;font-size:57px}
+.progress{height:14px;background:#e4eef4;border-radius:20px;overflow:hidden;margin:14px 0 22px}.progress div{height:100%;width:0;background:linear-gradient(90deg,#22bd6c,#ffca39);transition:width .25s}
+.qtitle{text-align:center;font-size:clamp(21px,3vw,30px);line-height:1.25;font-weight:900;margin:0 auto 25px;max-width:900px}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:13px}.option{border:0;border-radius:23px;background:linear-gradient(#85dc61,#59bc35);box-shadow:0 6px #388c24;color:white;min-height:86px;padding:14px;display:flex;align-items:center;justify-content:center;gap:13px;font:900 20px Nunito,Arial,sans-serif;cursor:pointer;transition:.15s}.option:hover:not(:disabled){filter:brightness(1.04);transform:translateY(-2px)}.option .letter{background:#fff;color:#3d922a;border-radius:13px;padding:7px 13px}.option.correct{background:linear-gradient(#4bd58b,#16a768);box-shadow:0 6px #087a49}.option.wrong{background:linear-gradient(#ff8c8c,#ed5555);box-shadow:0 6px #bd3030}.option:disabled{cursor:default}
+.feedback{display:none;margin:18px 0 0;padding:13px 16px;border-radius:15px;font-weight:800;line-height:1.5}.feedback.show{display:block}.feedback.good{background:#e2fbe9;color:#166534}.feedback.bad{background:#fff0e4;color:#9a3412}
+.controls{display:flex;justify-content:space-between;gap:12px;margin-top:20px;flex-wrap:wrap}.btn{border:0;border-radius:14px;padding:12px 20px;font:900 16px Nunito,Arial,sans-serif;cursor:pointer}.btn.primary{background:#8b5cf6;color:#fff;box-shadow:0 4px #6038bd}.btn.light{background:#e9f5ff;color:#245a80}.btn:disabled{opacity:.45;cursor:not-allowed}
+#result{display:none;text-align:center;padding:28px 8px}#result .big{font-size:72px}#result h2{font-size:34px;margin:0 0 8px}#result p{font-size:18px;line-height:1.5}
+@media(max-width:850px){.zones{grid-template-columns:repeat(2,minmax(0,1fr))}.zone:last-child{grid-column:span 2}.board{padding:24px 18px}.remember{font-size:15px}.dots{display:none}}
+@media(max-width:520px){header{padding:15px 12px}.brand{font-size:18px}.scorepill{font-size:15px;padding:7px 10px}.board{border-radius:25px;border-width:5px;padding:20px 13px}.zones{grid-template-columns:1fr 1fr;gap:8px}.zone{padding:10px 7px;min-height:240px}.zone h3{font-size:16px}.options{grid-template-columns:1fr}.option{min-height:70px;font-size:17px}.remember{padding:12px;gap:8px}.mascot{font-size:36px}}
+.authors{max-width:1180px;margin:auto;padding:14px 20px 0;text-align:center;color:#fff;text-shadow:0 2px 0 #3995c8;font-weight:900}.authors small{display:block;font-size:13px;letter-spacing:1.3px;text-transform:uppercase;opacity:.95}.authors span{display:inline-block;margin:4px 5px 0;padding:5px 14px;background:#fff;color:#302e46;border-radius:20px;box-shadow:0 3px #a9682c;text-shadow:none;font-size:16px}
+</style></head>
+<body>
+<div class="authors"><small>Nhóm thực hiện</small><span>Hoàng Thanh Tâm</span><span>Phạm Thu Trang</span><span>Nhuyễn Thị Anh Thư</span></div>
+<header><div class="home">⌂</div><div class="brand">Hành trình khám phá vật chất</div><div class="scorepill">⭐ <span id="totalScore">0</span></div><div class="home">🔊</div></header>
+<main><section class="board">
+<div id="map">
+<div class="eyebrow">Chọn một khu để chơi</div><h1 class="title">Bản đồ tri thức Triết học</h1>
+<div class="remember"><div class="mascot">🌱</div><div><b>Ghi nhớ:</b> Vật chất là phạm trù triết học chỉ thực tại khách quan, tồn tại không lệ thuộc vào cảm giác. Hãy vượt qua 5 khu vực để ôn tập mục 2.1!</div></div>
+<div class="zones">
+<button class="zone" onclick="startZone(0)"><span class="tag">Khu 1 · Khởi động</span><span class="emoji">🍅</span><h3>Quan niệm cổ đại</h3><p>Nhận biết các thuyết và yếu tố khởi nguyên</p><div class="stars" id="stars0">☆☆☆</div></button>
+<button class="zone" onclick="startZone(1)"><span class="tag">Khu 2 · Khám phá</span><span class="emoji">🥕</span><h3>Duy vật trước Mác</h3><p>Điểm tích cực và hạn chế</p><div class="stars" id="stars1">☆☆☆</div></button>
+<button class="zone" onclick="startZone(2)"><span class="tag">Khu 3 · Hoạt động</span><span class="emoji">🌽</span><h3>Cách mạng khoa học</h3><p>Những phát hiện mới về vật chất</p><div class="stars" id="stars2">☆☆☆</div></button>
+<button class="zone" onclick="startZone(3)"><span class="tag">Khu 4 · Luyện tập</span><span class="emoji">🧅</span><h3>Định nghĩa của Lênin</h3><p>Hiểu thực tại khách quan</p><div class="stars" id="stars3">☆☆☆</div></button>
+<button class="zone" onclick="startZone(4)"><span class="tag">Khu 5 · Vận dụng</span><span class="emoji">🌱</span><h3>Vận động & tồn tại</h3><p>Vận động, đứng im, không gian, thời gian</p><div class="stars" id="stars4">☆☆☆</div></button>
+</div></div>
+<div id="game">
+<div class="gamehead"><div class="gameicon" id="gameIcon">🍅</div><div style="flex:1"><div class="eyebrow" id="zoneName">KHỞI ĐỘNG</div><h2 class="title" id="zoneTitle">Quan niệm cổ đại</h2></div><div class="lives" id="lives">❤️❤️❤️</div><div class="dots" id="dots"></div></div>
+<div class="scene"><div class="grass"></div><div class="player" id="player">🌱</div><div class="enemy">🐛</div></div>
+<div class="progress"><div id="progressFill"></div></div>
+<div class="eyebrow" id="questionNumber">CÂU 1</div><h2 class="qtitle" id="question"></h2><div class="options" id="options"></div><div class="feedback" id="feedback"></div>
+<div class="controls"><button class="btn light" onclick="backToMap()">← Bản đồ</button><button class="btn primary" id="nextBtn" onclick="nextQuestion()" disabled>Câu tiếp theo →</button></div>
+</div>
+<div id="result"><div class="big" id="resultEmoji">🏆</div><h2 id="resultTitle">Hoàn thành!</h2><p id="resultText"></p><div class="controls" style="justify-content:center"><button class="btn light" onclick="backToMap()">← Về bản đồ</button><button class="btn primary" onclick="replayZone()">Chơi lại khu này ↻</button></div></div>
+</section></main>
+<script>
+const zones=[
+{title:"Quan niệm cổ đại",icon:"🍅",name:"KHỞI ĐỘNG",qs:[
+{q:"Theo thuyết Ngũ hành, năm yếu tố cơ bản là gì?",a:["Đất, nước, lửa, gió, khí","Kim, Mộc, Thủy, Hỏa, Thổ","Âm, Dương, Trời, Đất, Khí","Sóng, hạt, điện, từ, nhiệt"],c:1,e:"Ngũ hành gồm Kim, Mộc, Thủy, Hỏa, Thổ."},
+{q:"Thuyết tứ đại của Ấn Độ cổ đại gồm những yếu tố nào?",a:["Đất, nước, lửa, gió","Kim, mộc, thủy, hỏa","Âm, dương, khí, trời","Nguyên tử, điện tử, ánh sáng"],c:0,e:"Theo bài giảng, thuyết tứ đại gồm đất, nước, lửa và gió."},
+{q:"Điểm tích cực của chủ nghĩa duy vật thời cổ đại là gì?",a:["Dựa hoàn toàn vào ý thức","Xuất phát từ thế giới vật chất để giải thích thế giới","Đã chứng minh mọi giả thuyết bằng thực nghiệm","Phủ nhận sự vận động"],c:1,e:"Các nhà duy vật cổ đại đã tìm cách giải thích thế giới từ chính thế giới vật chất."}]},
+{title:"Duy vật trước Mác",icon:"🥕",name:"KHÁM PHÁ",qs:[
+{q:"Hạn chế của quan niệm duy vật thời cổ đại là gì?",a:["Không nghiên cứu tự nhiên","Các yếu tố khởi nguyên còn trực quan, cảm tính, chưa được chứng minh khoa học","Cho rằng vật chất không tồn tại","Chỉ nghiên cứu xã hội"],c:1,e:"Những yếu tố khởi nguyên thời cổ đại còn mang tính giả định, trực quan cảm tính."},
+{q:"Chủ nghĩa duy vật thế kỷ XVII–XVIII có xu hướng đồng nhất vật chất với gì?",a:["Ngôn ngữ","Ý thức","Khối lượng","Tình cảm"],c:2,e:"Bài giảng nêu xu hướng đồng nhất vật chất với khối lượng, giải thích vận động theo cơ học."},
+{q:"Một hạn chế siêu hình của quan niệm này là gì?",a:["Tách rời vật chất khỏi vận động, không gian và thời gian","Thừa nhận tính khách quan","Nghiên cứu thực nghiệm","Khẳng định thế giới có vận động"],c:0,e:"Quan niệm cũ có hạn chế khi tách rời vật chất khỏi vận động, không gian và thời gian."}]},
+{title:"Cách mạng khoa học",icon:"🌽",name:"HOẠT ĐỘNG",qs:[
+{q:"Ai được nêu trong bài giảng là người phát hiện điện tử?",a:["Rơn-ghen","Béc-cơ-ren","Tômxơn","Đêmôcrit"],c:2,e:"Bài giảng nêu Tômxơn phát hiện điện tử năm 1897."},
+{q:"Những phát hiện mới của vật lý học cho thấy điều gì?",a:["Vật chất hoàn toàn không tồn tại","Chỉ có ý thức là có thật","Giới hạn hiểu biết của con người về vật chất được mở rộng","Khoa học không còn giá trị"],c:2,e:"Cái thay đổi là giới hạn hiểu biết của con người về vật chất, không phải sự tồn tại của vật chất."},
+{q:"Theo bài giảng, ai phát hiện hiện tượng phóng xạ?",a:["Béc-cơ-ren","Tômxơn","Talét","Hêraclít"],c:0,e:"Béc-cơ-ren phát hiện hiện tượng phóng xạ năm 1896."}]},
+{title:"Định nghĩa của Lênin",icon:"🧅",name:"LUYỆN TẬP",qs:[
+{q:"Theo định nghĩa của Lênin, thuộc tính cơ bản nhất của vật chất là gì?",a:["Có thể nhìn thấy","Tồn tại khách quan","Có khối lượng lớn","Không thay đổi"],c:1,e:"Vật chất có thuộc tính cơ bản nhất là tồn tại khách quan, không lệ thuộc vào cảm giác."},
+{q:"Cụm từ “được cảm giác chép lại, chụp lại, phản ánh” khẳng định điều gì?",a:["Con người có thể nhận thức thế giới khách quan","Cảm giác tạo ra vật chất","Con người không thể nhận thức thế giới","Chỉ vật nhìn thấy mới là vật chất"],c:0,e:"Cụm từ này thể hiện thế giới khách quan có thể được con người nhận thức."},
+{q:"Vật chất theo định nghĩa của Lênin tồn tại như thế nào?",a:["Phụ thuộc vào ý muốn","Chỉ tồn tại khi được nhìn thấy","Không lệ thuộc vào cảm giác","Chỉ là nguyên tử"],c:2,e:"Vật chất là thực tại khách quan, tồn tại độc lập với cảm giác của con người."}]},
+{title:"Vận động & tồn tại",icon:"🌱",name:"VẬN DỤNG",qs:[
+{q:"Vận động theo nghĩa chung nhất là gì?",a:["Chỉ sự di chuyển vị trí","Mọi sự thay đổi và quá trình diễn ra trong vũ trụ","Chỉ hoạt động của con người","Trạng thái đứng yên"],c:1,e:"Vận động bao gồm mọi sự thay đổi và mọi quá trình."},
+{q:"Theo chủ nghĩa duy vật biện chứng, vận động là gì?",a:["Do ý thức tạo ra","Thuộc tính cố hữu, phương thức tồn tại của vật chất","Chỉ có ở sinh vật","Có thể tách rời vật chất"],c:1,e:"Vận động là thuộc tính cố hữu và phương thức tồn tại của vật chất."},
+{q:"Đứng im có đặc điểm nào?",a:["Tuyệt đối, vĩnh viễn","Chỉ có trong tư duy","Tương đối, tạm thời, trong quan hệ nhất định","Không liên quan đến vận động"],c:2,e:"Đứng im chỉ xảy ra trong một quan hệ và hình thức vận động nhất định, nên có tính tương đối."}]}
+];
+let zoneIndex=0,qIndex=0,zoneScore=0,totalScore=0,answered=false,results=[0,0,0,0,0],completed=[false,false,false,false,false];
+const $=id=>document.getElementById(id);
+function startZone(i){zoneIndex=i;qIndex=0;zoneScore=0;$('map').style.display='none';$('result').style.display='none';$('game').style.display='block';$('gameIcon').textContent=zones[i].icon;$('zoneTitle').textContent=zones[i].title;$('zoneName').textContent=zones[i].name;renderQuestion();window.scrollTo({top:0,behavior:'smooth'})}
+function renderQuestion(){answered=false;const z=zones[zoneIndex],item=z.qs[qIndex];$('questionNumber').textContent=`CÂU ${qIndex+1} / ${z.qs.length}`;$('question').textContent=item.q;$('options').innerHTML='';$('feedback').className='feedback';$('feedback').textContent='';$('nextBtn').disabled=true;$('nextBtn').textContent=qIndex===z.qs.length-1?'Xem kết quả':'Câu tiếp theo →';$('progressFill').style.width=`${qIndex/z.qs.length*100}%`;$('dots').innerHTML=z.qs.map((_,i)=>`<span class="${i===qIndex?'active':''}">●</span>`).join('');$('lives').textContent='❤️'.repeat(Math.max(0,3-Math.floor((qIndex-zoneScore)/2)))+'🤍'.repeat(Math.min(3,Math.floor((qIndex-zoneScore)/2)));$('player').style.left=(9+qIndex*22)+'%';item.a.forEach((a,i)=>{let b=document.createElement('button');b.className='option';b.innerHTML=`<span class="letter">${'ABCD'[i]}</span><span>${a}</span>`;b.onclick=()=>choose(i);$('options').appendChild(b)})}
+function choose(i){if(answered)return;answered=true;const item=zones[zoneIndex].qs[qIndex];[...$('options').children].forEach((b,j)=>{b.disabled=true;if(j===item.c)b.classList.add('correct');if(j===i&&i!==item.c)b.classList.add('wrong')});let good=i===item.c;if(good){zoneScore++;totalScore++;$('totalScore').textContent=totalScore}let f=$('feedback');f.className='feedback show '+(good?'good':'bad');f.textContent=(good?'✨ Chính xác! ':'💡 Chưa đúng. ')+item.e;$('nextBtn').disabled=false}
+function nextQuestion(){if(!answered)return;if(qIndex<zones[zoneIndex].qs.length-1){qIndex++;renderQuestion()}else showResult()}
+function showResult(){ $('game').style.display='none';$('result').style.display='block';$('progressFill').style.width='100%';let n=zones[zoneIndex].qs.length;results[zoneIndex]=Math.max(results[zoneIndex],zoneScore);completed[zoneIndex]=true;$('resultEmoji').textContent=zoneScore===n?'🏆':'⭐';$('resultTitle').textContent=zoneScore===n?'Xuất sắc!':zoneScore>=2?'Làm tốt lắm!':'Cố gắng thêm nhé!';$('resultText').textContent=`Bạn trả lời đúng ${zoneScore}/${n} câu ở khu “${zones[zoneIndex].title}”. ${zoneScore===n?'Bạn nhận được 3 sao!':'Hãy xem lại phần giải thích rồi thử lại để đạt thêm sao.'}`;$('stars'+zoneIndex).textContent='★'.repeat(Math.round(zoneScore/n*3))+'☆'.repeat(3-Math.round(zoneScore/n*3));}
+function backToMap(){$('game').style.display='none';$('result').style.display='none';$('map').style.display='block';window.scrollTo({top:0,behavior:'smooth'})}
+function replayZone(){startZone(zoneIndex)}
+</script></body></html>
